@@ -13,7 +13,6 @@ const privateKeys: UserPrivateKeys[] = ['id', 'active', 'level', 'validated'];
 
 export default class UsersValidator {
   create<T extends UserCreate>(data: T): boolean {
-    console.log('validate', data);
     const requiredKeys = publicKeys.reduce<UserPublicKeys[]>((list, item) => {
       if (!(item in data)) return [...list, item];
       return list;
@@ -40,6 +39,20 @@ export default class UsersValidator {
         code: 400,
         message: 'private keys is not valid',
         info: hasPrivateKeys,
+      });
+    }
+
+    const receivedKeys = Object.keys(data);
+    const hasAnyKeys = receivedKeys.reduce<string[]>((list, key) => {
+      if (!publicKeys.includes(key as UserPublicKeys)) return [...list, key];
+      return list;
+    }, []);
+
+    if (hasAnyKeys.length > 0) {
+      throw new AppError({
+        code: 400,
+        message: 'keys not valid',
+        info: hasAnyKeys,
       });
     }
 
