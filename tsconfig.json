@@ -8,14 +8,14 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["./src/*"],
-      "@types/*": ["./src/@types/*"],
+      "types/*": ["./src/types/*"],
       "@controllers/*": ["./src/controllers/*"],
       "@routes/*": ["./src/routes/*"],
       "@services/*": ["./src/services/*"],
       "@util/*": ["./src/util/*"],
       "@validators/*": ["./src/validators/*"],
       "@database/*": ["./src/database/*"],
+      "@models/*": ["./src/models/*"],
       "@middlewares/*": ["./src/middlewares/*"]
     },
     "resolveJsonModule": true,
@@ -24,7 +24,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
