@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import routeMiddleware from '@middlewares/routesMiddleware';
+import usersRoutes from '@routes/usersRoutes';
 
 dotenv.config();
 
@@ -12,6 +13,8 @@ server.use(cors());
 server.use(express.json());
 
 server.use(routeMiddleware);
+
+server.use('/users', usersRoutes);
 
 server.use('/*', (req, res) => {
   return res.send('hello from express ;)');
