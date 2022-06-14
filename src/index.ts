@@ -1,6 +1,6 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -10,8 +10,8 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-server.use("/*", (req, res) => {
-  return res.send("hello from express ;)");
+server.use('/*', (req, res) => {
+  return res.send('hello from express ;)');
 });
 
 server.listen(PORT, () => {
