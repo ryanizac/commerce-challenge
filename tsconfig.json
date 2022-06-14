@@ -15,7 +15,8 @@
       "@services/*": ["./src/services/*"],
       "@util/*": ["./src/util/*"],
       "@validators/*": ["./src/validators/*"],
-      "@database/*": [".src/database/*"]
+      "@database/*": ["./src/database/*"],
+      "@middlewares/*": ["./src/middlewares/*"]
     },
     "resolveJsonModule": true,
     "outDir": "./dist",
