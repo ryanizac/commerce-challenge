@@ -14,7 +14,8 @@
       "@routes/*": ["./src/routes/*"],
       "@services/*": ["./src/services/*"],
       "@util/*": ["./src/util/*"],
-      "@validators/*": ["./src/validators/*"]
+      "@validators/*": ["./src/validators/*"],
+      "@database/*": [".src/database/*"]
     },
     "resolveJsonModule": true,
     "outDir": "./dist",
