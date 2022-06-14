@@ -5,7 +5,7 @@ export default function routeMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  req.url = req.url.replace(/\/$/g, '');
+  req.url.length > 1 && (req.url = req.url.replace(/\/$/g, ''));
   req.method = req.method.toLocaleUpperCase();
   next();
 }
