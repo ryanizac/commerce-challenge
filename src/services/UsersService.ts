@@ -32,7 +32,17 @@ export default class UsersService {
     this.validator.hasId($id);
     this.validator.update(data);
     const id = toInt($id);
-    const user = this.model.update({ data, where: { id } });
+    const { password: _password, ...user } = await this.model.update({
+      data,
+      where: { id },
+    });
+    return user;
+  }
+
+  async delete<T extends number | string>($id: T): Promise<User> {
+    this.validator.hasId($id);
+    const id = toInt($id);
+    const user = await this.model.delete({ where: { id } });
     return user;
   }
 }
