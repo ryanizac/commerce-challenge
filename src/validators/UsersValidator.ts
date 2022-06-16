@@ -126,7 +126,7 @@ export default class UsersValidator {
   hasId<T extends string | number>(data: T): boolean {
     const id = toInt(data);
 
-    if (typeof id !== 'number' || isNaN(id)) {
+    if (typeof id !== 'number' || isNaN(id) || /\D/.test(data as string)) {
       throw new AppError({
         code: 400,
         message: 'id is not a number',
