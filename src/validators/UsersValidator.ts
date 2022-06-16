@@ -1,4 +1,5 @@
 import AppError from '@util/AppError';
+import { toInt } from '@util/number';
 import { User, UserCreate, UserPrivateKeys, UserPublicKeys } from 'types/user';
 
 const publicKeys: UserPublicKeys[] = [
@@ -56,6 +57,19 @@ export default class UsersValidator {
       });
     }
 
+    return true;
+  }
+
+  hasId<T extends string | number>(data: T): boolean {
+    const id = toInt(data);
+
+    if (typeof id !== 'number' || isNaN(id)) {
+      throw new AppError({
+        code: 400,
+        message: 'id is not a number',
+        info: { id: data },
+      });
+    }
     return true;
   }
 }
