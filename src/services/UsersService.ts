@@ -1,6 +1,7 @@
 import UsersModel from '@models/UsersModel';
 import { toInt } from '@util/number';
 import UsersValidator from '@validators/UsersValidator';
+import { compare, hash } from 'bcrypt';
 import { User, UserCreate, UserResponse, UserUpdate } from 'types/user';
 
 export default class UsersService {
@@ -12,8 +13,17 @@ export default class UsersService {
     this.validator = new UsersValidator();
   }
 
+  async encryptPassowrd(password: string): Promise<string> {
+    return hash(password, 8);
+  }
+
+  async comparePassword(password: string, encrypted: string): Promise<boolean> {
+    return compare(password, encrypted);
+  }
+
   async create(data: UserCreate): Promise<UserResponse> {
     this.validator.create(data);
+    data.password = await this.encryptPassowrd(data.password);
     const resUser = await this.model.create({ data });
     const { password, ...user } = resUser;
     return user;
@@ -32,6 +42,9 @@ export default class UsersService {
     this.validator.hasId($id);
     this.validator.update(data);
     const id = toInt($id);
+    if (data.password) {
+      data.password = await this.encryptPassowrd(data.password);
+    }
     const { password: _password, ...user } = await this.model.update({
       data,
       where: { id },
