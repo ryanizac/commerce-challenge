@@ -17,4 +17,14 @@ export default class UsersController {
       return res.status(400).json(error);
     }
   }
+
+  async read(req: Request, res: Response) {
+    const id = req.params.id as any;
+    try {
+      const user = await this.service.read(id);
+      return res.status(200).json(user);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
 }

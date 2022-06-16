@@ -72,4 +72,15 @@ export default class UsersValidator {
     }
     return true;
   }
+
+  wasFound<T extends object, U extends object>(user: T, info?: U): boolean {
+    if (user === null) {
+      throw new AppError({
+        code: 200,
+        message: 'user not found',
+        info: { user, ...info },
+      });
+    }
+    return true;
+  }
 }
