@@ -27,4 +27,16 @@ export default class UsersController {
       return res.status(400).json(error);
     }
   }
+
+  async update(req: Request, res: Response) {
+    const id = req.params.id as any;
+    const body = req.body as any;
+
+    try {
+      const user = await this.service.update(id, body);
+      return res.status(200).json(user);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
 }

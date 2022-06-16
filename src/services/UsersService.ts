@@ -1,7 +1,7 @@
 import UsersModel from '@models/UsersModel';
 import { toInt } from '@util/number';
 import UsersValidator from '@validators/UsersValidator';
-import { User, UserCreate, UserResponse } from 'types/user';
+import { User, UserCreate, UserResponse, UserUpdate } from 'types/user';
 
 export default class UsersService {
   validator: UsersValidator;
@@ -25,6 +25,14 @@ export default class UsersService {
     const resUser = (await this.model.findUnique({ where: { id } })) as User;
     this.validator.wasFound(resUser);
     const { password: _password, ...user } = resUser;
+    return user;
+  }
+
+  async update($id: number | string, data: UserUpdate): Promise<UserResponse> {
+    this.validator.hasId($id);
+    this.validator.update(data);
+    const id = toInt($id);
+    const user = this.model.update({ data, where: { id } });
     return user;
   }
 }

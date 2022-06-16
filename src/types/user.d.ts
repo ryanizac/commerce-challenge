@@ -10,6 +10,10 @@ type UserCreate = Omit<User, UserPrivateKeys>;
 
 type UserResponse = Omit<User, 'password'>;
 
+type UserUpdate = Omit<UserCreate, 'email'>;
+
+type UserUpdateKeys = keyof UserUpdate;
+
 export type {
   User,
   UserAllKeys,
@@ -17,4 +21,6 @@ export type {
   UserPublicKeys,
   UserCreate,
   UserResponse,
+  UserUpdate,
+  UserUpdateKeys,
 };
