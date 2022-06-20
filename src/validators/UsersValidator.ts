@@ -8,6 +8,7 @@ import {
   UserUpdate,
   UserUpdateKeys,
 } from 'types/user';
+import GenericValidator from './GenericValidator';
 
 const publicKeys: UserPublicKeys[] = [
   'email',
@@ -31,7 +32,7 @@ const noUpdateKeys: Array<UserPrivateKeys | 'email'> = [
   'email',
 ];
 
-export default class UsersValidator {
+export default class UsersValidator extends GenericValidator {
   create<T extends UserCreate>(data: T): boolean {
     const requiredKeys = publicKeys.reduce<UserPublicKeys[]>((list, item) => {
       if (!(item in data)) return [...list, item];
@@ -145,5 +146,24 @@ export default class UsersValidator {
       });
     }
     return true;
+  }
+
+  isNotNull<T extends object>(data: T | null): T {
+    if (data === null) {
+      throw new AppError({
+        message: 'user not found',
+      });
+    }
+    return data;
+  }
+
+  isNotValidated<T extends User>(user: T): T {
+    if (user.validated) {
+      throw new AppError({
+        code: 400,
+        message: 'User is validated',
+      });
+    }
+    return user;
   }
 }
