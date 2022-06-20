@@ -17,7 +17,7 @@ model User {
   validated   Boolean      @default(false)
   active      Boolean      @default(true)
   validations Validation[]
-  Product     Product[]
+  products    Product[]
 }
 
 model Validation {
