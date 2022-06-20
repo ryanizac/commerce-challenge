@@ -17,6 +17,7 @@ model User {
   validated   Boolean      @default(false)
   active      Boolean      @default(true)
   validations Validation[]
+  Product     Product[]
 }
 
 model Validation {
@@ -24,6 +25,14 @@ model Validation {
   code      String
   expired   Boolean  @default(false)
   expiredIn DateTime @default(dbgenerated("NOW() + interval '1 day'"))
-  User      User?    @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
   userId    Int?
+}
+
+model Product {
+  id       Int    @id @unique @default(autoincrement())
+  name     String
+  price    Int
+  seller   User   @relation(fields: [sellerId], references: [id])
+  sellerId Int
 }

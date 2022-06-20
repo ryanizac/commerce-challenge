@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import routeMiddleware from '@middlewares/routesMiddleware';
 import usersRoutes from '@routes/usersRoutes';
+import productsRoutes from '@routes/productsRoutes';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ server.use(express.json());
 server.use(routeMiddleware);
 
 server.use('/users', usersRoutes);
+server.use('/products', productsRoutes);
 
 server.use('/*', (req, res) => {
   return res.status(404).send('page not found');
