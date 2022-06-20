@@ -17,7 +17,7 @@ server.use(routeMiddleware);
 server.use('/users', usersRoutes);
 
 server.use('/*', (req, res) => {
-  return res.send('hello from express ;)');
+  return res.status(404).send('page not found');
 });
 
 server.listen(PORT, () => {
