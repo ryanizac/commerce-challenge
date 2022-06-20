@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body style="font-family: sans-serif">
+    <div style="text-align: center">
+      <h2 style="margin-bottom: 20px">Olá, <%= name %></h2>
+      <p style="margin-bottom: 40px">
+        Estamos enviando esse email com o seguinte botão para<br />
+        validar sua conta no <b>Commerce Challenge</b>.
+      </p>
+      <a
+        href="<%= url %>"
+        style="
+          text-decoration: none;
+          color: white;
+          background: rgb(29, 29, 29);
+          padding: 10px 20px;
+        "
+        >Clique aqui!</a
+      >
+      <p style="margin-top: 40px">
+        <div>Caso esteja tendo problemas com o botão:</div>
+        <a href="<%= url %>"><%= url %></a>
+      </p>
+      <p style="margin-top: 40px">
+        <i
+          >Se você não fez um cadastro utilizando esse email, pedimos não<br />
+          compartilhe esse link com ninguém e que fique tranquilo, pois esse<br />
+          link expirará em até 24 horas.</i
+        >
+      </p>
+      <p>
+        Email enviado de <%= from %><br />
+        Email enviado para <%= to %><br />
+      </p>
+    </div>
+  </body>
+</html>
