@@ -6,6 +6,12 @@ type StrOrNum<T> = T extends 'string' ? string : number;
 type OnlyType<T> = Record<string, T>;
 
 export default class GenericValidator {
+  entityName?: string;
+
+  constructor(entityName?: string) {
+    this.entityName = entityName;
+  }
+
   isType<T extends object, U extends Types, R = StrOrNum<U>>(
     $object: T,
     type: U
@@ -32,5 +38,15 @@ export default class GenericValidator {
 
   isString<T extends OnlyType<string>>($object: T): string {
     return this.isType($object, 'string');
+  }
+
+  isNotNull<T extends object>($object: T | null): T {
+    if ($object === null) {
+      throw new AppError({
+        message: `${this.entityName || 'data'} not found`,
+      });
+    }
+
+    return $object;
   }
 }
