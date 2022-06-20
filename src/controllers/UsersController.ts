@@ -50,4 +50,27 @@ export default class UsersController {
       return res.status(400).json(error);
     }
   }
+
+  async sendValidation(req: Request, res: Response) {
+    const id = req.params.id as any;
+
+    try {
+      const val = await this.service.sendValidation(id);
+      return res.status(200).json(val);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
+
+  async validate(req: Request, res: Response) {
+    const id = req.params.id as any;
+    const code = req.params.code as any;
+
+    try {
+      const val = await this.service.validate(id, code);
+      return res.status(200).json(val);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
 }
