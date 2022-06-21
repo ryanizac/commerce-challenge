@@ -15,7 +15,7 @@ export default class UsersService {
 
   constructor() {
     this.model = UsersModel;
-    this.validator = new UsersValidator();
+    this.validator = new UsersValidator('User');
     this.validationsService = new ValidationsService();
   }
 
@@ -27,12 +27,16 @@ export default class UsersService {
     return compare(password, encrypted);
   }
 
-  async create(data: UserCreate): Promise<UserResponse> {
-    this.validator.create(data);
+  async create($data: UserCreate): Promise<UserResponse> {
+    const data = this.validator.isNotNull($data);
     data.password = await this.encryptPassowrd(data.password);
     const code = randomUUID();
     const resUser = await this.model.create({
-      data: { ...data, validations: { create: { code } } },
+      data: {
+        ...data,
+        validations: { create: { code } },
+        bag: { create: true },
+      },
       include: { validations: true },
     });
     const { password, validations, ...user } = resUser;
