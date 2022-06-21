@@ -35,7 +35,7 @@ export default class UsersService {
       data: {
         ...data,
         validations: { create: { code } },
-        bag: { create: true },
+        bag: { create: {} },
       },
       include: { validations: true },
     });
