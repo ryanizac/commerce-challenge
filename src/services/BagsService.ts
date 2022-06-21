@@ -35,5 +35,3 @@ export default class BagsService {
     return count;
   }
 }
-
-export class OrdersService {}

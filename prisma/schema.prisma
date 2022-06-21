@@ -19,16 +19,18 @@ model User {
   validations Validation[]
   products    Product[]
   bag         Bag?
+  orders      Order[]
 }
 
 model Address {
-  id           Int    @id @unique @default(autoincrement())
+  id           Int     @id @unique @default(autoincrement())
   postalCode   String
   street       String
   neighborhood String
   number       Int
-  user         User   @relation(fields: [userId], references: [id])
+  user         User    @relation(fields: [userId], references: [id])
   userId       Int
+  orders       Order[]
 }
 
 model Validation {
@@ -61,6 +63,34 @@ model Item {
   quantity  Int
   product   Product @relation(fields: [productId], references: [id])
   productId Int
-  bag       Bag     @relation(fields: [bagId], references: [id])
-  bagId     Int
+  bag       Bag?    @relation(fields: [bagId], references: [id])
+  bagId     Int?
+  inOrder   Boolean @default(false)
+  order     Order?  @relation(fields: [orderId], references: [id])
+  orderId   Int?
+}
+
+enum FormPayment {
+  CREDIT_CARD
+  DEBIT_CARD
+  PIX
+}
+
+enum Status {
+  PROCESSING
+  PREPARING
+  SENT
+  DELIVERED
+}
+
+model Order {
+  id          Int         @id @unique @default(autoincrement())
+  createAt    DateTime    @default(now())
+  formPayment FormPayment @default(CREDIT_CARD)
+  address     Address     @relation(fields: [addressId], references: [id])
+  addressId   Int
+  user        User        @relation(fields: [userId], references: [id])
+  userId      Int
+  items       Item[]
+  status      Status      @default(PROCESSING)
 }

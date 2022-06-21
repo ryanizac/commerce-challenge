@@ -7,6 +7,7 @@ import productsRoutes from '@routes/productsRoutes';
 import bagsRoutes from '@routes/bagsRoutes';
 import itemsRoutes from '@routes/itemsRoutes';
 import addressRoutes from '@routes/addressRoutes';
+import ordersRoutes from '@routes/ordersRoutes';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ server.use('/products', productsRoutes);
 server.use('/bags', bagsRoutes);
 server.use('/items', itemsRoutes);
 server.use('/address', addressRoutes);
+server.use('/orders', ordersRoutes);
 
 server.use('/*', (req, res) => {
   return res.status(404).send('page not found');

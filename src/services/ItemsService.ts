@@ -57,4 +57,13 @@ export default class ItemsService {
     const items = await this.model.deleteMany({ where: { bag: { userId } } });
     return items.count;
   }
+
+  // internal
+  async migrateToOrder(orderId: number, itemList: number[]): Promise<number> {
+    const items = await this.model.updateMany({
+      data: { inOrder: true, bagId: undefined },
+      where: { orderId },
+    });
+    return items.count;
+  }
 }

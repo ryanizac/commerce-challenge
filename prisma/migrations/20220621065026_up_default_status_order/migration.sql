@@ -1,0 +1,10 @@
+-- CreateEnum
+CREATE TYPE "Status" AS ENUM ('PROCESSING', 'PREPARING', 'SENT', 'DELIVERED');
+
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "status" "Status" NOT NULL DEFAULT E'PROCESSING',
+ALTER COLUMN "createAt" SET DEFAULT CURRENT_TIMESTAMP,
+ALTER COLUMN "formPayment" SET DEFAULT E'CREDIT_CARD';
+
+-- AlterTable
+ALTER TABLE "Validation" ALTER COLUMN "expiredIn" SET DEFAULT NOW() + interval '1 day';

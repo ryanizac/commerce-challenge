@@ -1,8 +1,13 @@
 import UsersController from '@controllers/UsersController';
+import db from '@database/db';
 import { Router } from 'express';
 
 const usersRoutes = Router();
 const usersController = new UsersController();
+
+usersRoutes.get('/many', async (req, res) =>
+  res.json(await db.user.findMany())
+);
 
 usersRoutes.post('/', (req, res) => usersController.create(req, res));
 usersRoutes.get('/:id', (req, res) => usersController.read(req, res));
