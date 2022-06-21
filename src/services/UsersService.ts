@@ -28,7 +28,7 @@ export default class UsersService {
   }
 
   async create($data: UserCreate): Promise<UserResponse> {
-    const data = this.validator.isNotNull($data);
+    const { address, ...data } = this.validator.isNotNull($data);
     data.password = await this.encryptPassowrd(data.password);
     const code = randomUUID();
     const resUser = await this.model.create({
@@ -36,8 +36,9 @@ export default class UsersService {
         ...data,
         validations: { create: { code } },
         bag: { create: {} },
+        address: { create: address },
       },
-      include: { validations: true },
+      include: { validations: true, address: true },
     });
     const { password, validations, ...user } = resUser;
     this.validationsService.send(user, validations[0]);
