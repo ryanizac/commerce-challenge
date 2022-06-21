@@ -52,6 +52,16 @@ export default class ProductsController {
   }
 
   // many
+  async createMany(req: Request, res: Response) {
+    const body = req.body as any;
+    try {
+      const products = await this.service.createMany(body);
+      return res.status(200).json(products);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
+
   async readMany(req: Request, res: Response) {
     try {
       const product = await this.service.readMany();

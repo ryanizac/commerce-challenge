@@ -2,6 +2,10 @@ import ProductsModel from '@models/ProductsModel';
 import { Product } from '@prisma/client';
 import ProductsValidator from '@validators/ProductsValidator';
 
+type IPick<I extends object, K extends keyof I> = Pick<I, keyof Omit<I, K>>;
+
+type CreateManyBody = IPick<Product, 'id'>;
+
 export default class ProductsService {
   model;
   validator;
@@ -39,6 +43,12 @@ export default class ProductsService {
   }
 
   // many
+  async createMany($data: CreateManyBody[]) {
+    const data = this.validator.isNotNull($data);
+    const products = await this.model.createMany({ data });
+    return products;
+  }
+
   async readMany() {
     const products = await this.model.findMany();
     return products;

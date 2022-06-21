@@ -10,6 +10,10 @@ productsRoutes.get('/many', (req, res) =>
   productsController.readMany(req, res)
 );
 
+productsRoutes.post('/many', (req, res) =>
+  productsController.createMany(req, res)
+);
+
 productsRoutes.post('/', (req, res) => productsController.create(req, res));
 productsRoutes.get('/:id', (req, res) => productsController.read(req, res));
 productsRoutes.put('/:id', (req, res) => productsController.update(req, res));
