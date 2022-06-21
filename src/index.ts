@@ -4,6 +4,8 @@ import cors from 'cors';
 import routeMiddleware from '@middlewares/routesMiddleware';
 import usersRoutes from '@routes/usersRoutes';
 import productsRoutes from '@routes/productsRoutes';
+import bagsRoutes from '@routes/bagsRoutes';
+import itemsRoutes from '@routes/itemsRoutes';
 
 dotenv.config();
 
@@ -17,6 +19,8 @@ server.use(routeMiddleware);
 
 server.use('/users', usersRoutes);
 server.use('/products', productsRoutes);
+server.use('/bags', bagsRoutes);
+server.use('/items', itemsRoutes);
 
 server.use('/*', (req, res) => {
   return res.status(404).send('page not found');

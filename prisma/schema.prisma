@@ -18,6 +18,7 @@ model User {
   active      Boolean      @default(true)
   validations Validation[]
   products    Product[]
+  bag         Bag?
 }
 
 model Validation {
@@ -35,4 +36,21 @@ model Product {
   price    Int
   seller   User   @relation(fields: [sellerId], references: [id])
   sellerId Int
+  item     Item[]
+}
+
+model Bag {
+  id     Int    @id @unique @default(autoincrement())
+  items  Item[]
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @unique
+}
+
+model Item {
+  id        Int     @id @unique @default(autoincrement())
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  bag       Bag     @relation(fields: [bagId], references: [id])
+  bagId     Int
 }
